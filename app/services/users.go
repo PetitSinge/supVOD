@@ -63,3 +63,32 @@ func UpdateUser(user models.User) error {
 	return err
 
 }
+
+func ListUsers() (models.Users, error) {
+	var (
+		user   models.User
+		users  models.Users
+		val    string
+		err    error
+		listid []string
+	)
+
+	redisInstance := rediscon.GetRedisInstance() // récupération de la connexion ouverte
+
+	listid, err = listID(user.Tablename())
+	if err != nil {
+		return nil, err
+	}
+
+	for i := range listid {
+		val, err = redisInstance.Get(listid[i]).Result()
+		if err == nil {
+			if err = json.Unmarshal([]byte(val), &user); err != nil {
+				return nil, err
+			}
+			users = append(users, user)
+		}
+	}
+	return users, nil
+
+}

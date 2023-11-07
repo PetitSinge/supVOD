@@ -7,22 +7,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CreateUser() {
-
-}
-
 func GetByID(c *gin.Context) {
 	id := c.Params.ByName("id")
 
-	user, err := services.GetByID(id)
+	movie, err := services.GetMovieByID(id)
 	if err != nil {
 		// gestion de l'erreur
 		c.JSON(http.StatusInternalServerError, err)
 	}
 
-	if user == nil {
+	if movie == nil {
 		c.JSON(http.StatusNotFound, nil)
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, movie)
 
 }

@@ -13,7 +13,8 @@ func main() {
 	rediscon.NewRedisClient()
 	router := initialiseRouter()
 
-	addUser()
+	addMovie()
+	services.ListMovie()
 
 	log.Println("Listen & serve")
 	http.ListenAndServe(":8080", router)
@@ -32,4 +33,18 @@ func addUser() {
 	if err := services.CreateUser(u); err != nil {
 		fmt.Println(err)
 	}
+}
+
+func addMovie() {
+
+	var m models.Movie
+	m.Title = "Pan Pan"
+	m.Description = "Film de cul"
+	m.Duration = "1H30"
+	m.Kinds = []string{"guerre", "amour"}
+
+	if err := services.CreateMovie(m); err != nil {
+		fmt.Println(err)
+	}
+
 }

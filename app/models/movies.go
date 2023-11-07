@@ -1,10 +1,11 @@
 package models
 
 type Movie struct {
-	Title       string
-	Description string
-	duration    uint8
-	// Kinds map[]string
+	ID          string   `json:"id"`
+	Title       string   `json:"title"`
+	Description string   `json:"description"`
+	Duration    string   `json:"duration"`
+	Kinds       []string `json:"kinds"`
 }
 
 // type Movies []Movie
